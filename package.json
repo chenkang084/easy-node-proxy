@@ -1,6 +1,6 @@
 {
-  "name": "node-proxy",
-  "version": "1.0.0",
+  "name": "easy-node-proxy",
+  "version": "1.0.1",
   "description": "The nodejs proxy server that likes nginx help you resolve cors.",
   "main": "index.js",
   "scripts": {
@@ -8,6 +8,9 @@
     "dev": "nodemon",
     "start": "node ./src/index.js",
     "prod": "(pm2 delete all || true) && pm2 start src/index.js -i 2 "
+  },
+  "bin": {
+    "node-proxy": "./bin/easy-node-proxy"
   },
   "author": "chenkang@084@163.com",
   "license": "ISC",
