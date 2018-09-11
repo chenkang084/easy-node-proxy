@@ -1,3 +1,43 @@
 #!/usr/bin/env node
 
-require("../src/")();
+'use strict';
+
+const path = require("path");
+const argv       = require('optimist')
+      .boolean('cors')
+      .argv;
+const chalk = require("chalk");
+const shell = require("shelljs");
+const rootPath = path.resolve(__dirname,"..");
+
+if (argv.h || argv.help) {
+  console.log([
+    'usage: easy-node-proxy [targetProxy] [options]',
+    '',
+    'options:',
+    '  -p           Port to use [8000]',
+    '  -h           Host to use [localhost]',
+    '  -t           TargetProxy',
+    '  --help    Print this list and exit.'
+  ].join('\n'));
+  process.exit();
+};
+
+if(!argv || argv == null){
+    console.log(chalk.red(`Internal issues,Please contact the author.`));
+    process.exit();
+}else if(!argv.t){
+    console.log(chalk.red(`You must specify the targetProxy, please write the correct targetProxy!
+For example:http://www.example.com`));
+  process.exit();
+}else{
+  const port = argv.p || "8000";
+  const host = argv.h || "localhost";
+
+  process.env.targetProxy = argv.t.trim();
+  process.env.port = port.trim();
+  process.env.host = host.trim();
+
+  shell.exec(`node ${rootPath}/src/index.js`);
+}
+
