@@ -1,0 +1,25 @@
+{
+  "name": "node-proxy",
+  "version": "1.0.0",
+  "description": "The nodejs proxy server that likes nginx help you resolve cors.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon",
+    "start": "node ./src/index.js",
+    "prod": "(pm2 delete all || true) && pm2 start src/index.js -i 2 "
+  },
+  "author": "chenkang@084@163.com",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "http-proxy-middleware": "^0.19.0",
+    "pm2": "^3.0.3"
+  },
+  "devDependencies": {
+    "compression": "^1.7.3",
+    "nodemon": "^1.18.4"
+  }
+}
