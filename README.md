@@ -2,7 +2,20 @@
 
 A simple web proxy developed by nodejs.
 
-## Setup your environment
+## Installation
+
+```
+npm install easily-node-proxy -g
+```
+
+## Usage
+
+```
+easily-node-proxy start -t your-proxy-server
+easily-node-proxy stop
+```
+
+## Setup your environment for develop
 
 ```
 1.npm install
