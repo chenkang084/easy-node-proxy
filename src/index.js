@@ -12,6 +12,8 @@ const middlewares = require("./middlewares");
 const targetProxy = process.env.targetProxy;
 const port = process.env.port;
 const host = process.env.host;
+const rewritePath = process.env.rewritePath;
+const oldPath = process.env.oldPath;
 
 // enable cors request
 app.use(
@@ -25,10 +27,13 @@ app.use(compression());
 middlewares(app);
 
 app.use(
-  "/api",
+  "/*",
   proxy({
     target: targetProxy,
-    changeOrigin: true
+    changeOrigin: true,
+    pathRewrite: {
+      [oldPath]: rewritePath
+    }
   })
 );
 
