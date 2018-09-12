@@ -22,6 +22,8 @@ app.use(
 
 app.use(compression());
 
+middlewares(app);
+
 app.use(
   "/api",
   proxy({
@@ -30,7 +32,6 @@ app.use(
   })
 );
 
-middlewares(app);
 const server = http.createServer(app);
 
 // Start your app.
@@ -44,7 +45,7 @@ server.listen(port, host, err => {
     chalk.green(
       `The node server can proxy http://${host +
         ":" +
-        port}/api/* --> ${targetProxy}api/*`
+        port}/api/* --> ${targetProxy}/api/*`
     )
   );
 });
