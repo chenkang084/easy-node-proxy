@@ -1,18 +1,22 @@
-# Node Proxy
+# Easy Node Proxy
 
-A simple web proxy developed by nodejs.
+An easy and simple web proxy server based on nodejs,pm2.
 
 ## Installation
 
 ```
-npm install easily-node-proxy -g
+npm install easy-node-proxy -g
 ```
 
 ## Usage
 
-```
-easily-node-proxy start -t your-proxy-server
-easily-node-proxy stop
+```javscript
+// start server
+easy-node-proxy start -t your-proxy-server
+// stop server
+easy-node-proxy stop
+// check other information
+easy-node-proxy --help
 ```
 
 ## Setup your environment for develop

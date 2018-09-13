@@ -3,7 +3,6 @@ const cors = require("cors");
 const express = require("express");
 const proxy = require("http-proxy-middleware");
 const compression = require("compression");
-const config = require("./config");
 const chalk = require("chalk");
 
 const app = express();
@@ -32,7 +31,7 @@ app.use(
     target: targetProxy,
     changeOrigin: true,
     pathRewrite: {
-      [oldPath]: rewritePath
+      ["^" + oldPath]: rewritePath
     }
   })
 );
