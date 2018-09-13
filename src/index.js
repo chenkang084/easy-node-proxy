@@ -26,13 +26,25 @@ app.use(compression());
 middlewares(app);
 
 app.use(
-  "/*",
+  "/api",
   proxy({
-    target: targetProxy,
+    target: "http://scm-sh-auto-02.coupang.net:10001",
     changeOrigin: true,
-    pathRewrite: {
-      ["^" + oldPath]: rewritePath
-    },
+    // pathRewrite: {
+    //   '^/api': rewritePath
+    // },
+    logLevel: "debug"
+  })
+);
+
+app.use(
+  "/sop",
+  proxy({
+    target: "http://10.211.162.36:8080",
+    changeOrigin: true,
+    // pathRewrite: {
+    //   ['^' + oldPath]: rewritePath
+    // },
     logLevel: "debug"
   })
 );
