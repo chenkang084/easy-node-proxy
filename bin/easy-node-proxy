@@ -34,7 +34,7 @@ For example:http://www.example.com`)
     const port = argv.p || "8000";
     const host = argv.h || "0.0.0.0";
     const rewritePath = argv.r || "/";
-    const oldPath = argv.o || "^/";
+    const oldPath = argv.o || "/";
 
     process.env.targetProxy = argv.t.trim();
     process.env.port = (port + "").trim();

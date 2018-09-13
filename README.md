@@ -1,6 +1,6 @@
-# Node Proxy
+# Easy Node Proxy
 
-A simple web proxy developed by nodejs.
+An easy web proxy server by nodejs based on express,pm2.
 
 ## Installation
 

@@ -3,7 +3,6 @@ const cors = require("cors");
 const express = require("express");
 const proxy = require("http-proxy-middleware");
 const compression = require("compression");
-const config = require("./config");
 const chalk = require("chalk");
 
 const app = express();
@@ -32,8 +31,9 @@ app.use(
     target: targetProxy,
     changeOrigin: true,
     pathRewrite: {
-      [oldPath]: rewritePath
-    }
+      ["^" + oldPath]: rewritePath
+    },
+    logLevel: "debug"
   })
 );
 
@@ -50,7 +50,9 @@ server.listen(port, host, err => {
     chalk.green(
       `The node server can proxy http://${host +
         ":" +
-        port}/api/* --> ${targetProxy}/api/*`
+        port +
+        "/" +
+        oldPath}/* --> ${targetProxy + "/" + rewritePath}/*`
     )
   );
 });
