@@ -17,6 +17,20 @@ easy-node-proxy start -t your-proxy-server
 easy-node-proxy stop
 // check other information
 easy-node-proxy --help
+Usage: easy-node-proxy [options] [command]
+
+Options:
+
+  -t, --target  specify the target proxy server [http://www.exmaple.com]
+  -h,--host     setup your proxy host to use [localhost]
+  -r,--rewrite  rewrite your proxy to use [^/ /]
+  -p,--port     setup your proxy port to use [8000]
+  -h, --help    output usage information
+
+Commands:
+
+  start         start your proxy server
+  stop          stop your proxy server
 ```
 
 ## Setup your environment for develop
