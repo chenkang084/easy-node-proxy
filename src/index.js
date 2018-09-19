@@ -28,7 +28,7 @@ middlewares(app);
 app.use(
   "/api",
   proxy({
-    target: "http://scm-sh-auto-02.coupang.net:10001",
+    target: "http://scm-sh-auto-03.coupang.net:10001",
     changeOrigin: true,
     // pathRewrite: {
     //   '^/api': rewritePath
@@ -40,7 +40,7 @@ app.use(
 app.use(
   "/sop",
   proxy({
-    target: "http://10.211.162.36:8080",
+    target: "http://10.211.162.168:8080",
     changeOrigin: true,
     // pathRewrite: {
     //   ['^' + oldPath]: rewritePath
