@@ -8,7 +8,8 @@
     "dev": "nodemon",
     "start": "node ./src/index.js",
     "prod": "(pm2 delete all || true) && pm2 start src/index.js -i 2 ",
-    "stop": "pm2 stop all"
+    "stop": "pm2 stop all",
+    "generate:config": "node ./scripts/setupConfig.js"
   },
   "bin": {
     "easy-node-proxy": "./bin/easy-node-proxy"
