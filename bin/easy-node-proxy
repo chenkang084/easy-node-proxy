@@ -26,6 +26,8 @@ program
   .action(function() {
     if (argv.c) {
       process.env.config = true;
+      shell.exec(`cd ${rootPath} && npm run prod`);
+      console.log(chalk.green("start your proxy server"));
     }
 
     if (!argv.c && !argv.t) {

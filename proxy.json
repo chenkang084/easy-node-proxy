@@ -1,11 +1,16 @@
 {
   "localServer": {
-    "host": "8000"
+    "host": "localhost",
+    "port": "8000"
   },
   "proxyServer": [
     {
-      "path": "/api",
-      "target": ""
+      "path": "/sop/obf",
+      "target": "http://10.211.162.168:8080"
+    },
+    {
+      "path": "/sop/automation",
+      "target": "http://10.211.162.168:9090"
     }
   ]
 }

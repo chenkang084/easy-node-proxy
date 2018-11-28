@@ -9,7 +9,8 @@ const fs = require("fs");
 const app = express();
 const middlewares = require("./middlewares");
 
-const { targetProxy, port, host, rewritePath, oldPath, config } = process.env;
+const { targetProxy, rewritePath, oldPath, config } = process.env;
+let { port, host } = process.env;
 
 // enable cors request
 app.use(
@@ -23,11 +24,39 @@ app.use(compression());
 middlewares(app);
 
 if (config) {
-  const { localServer, proxyServer } = JSON.parse(
-    fs.readFileSync(`${process.cwd()}/proxy.json`)
-  );
+  const proxyPath = `${process.cwd()}/proxy.json`;
+  if (!fs.existsSync(proxyPath)) {
+    console.log(
+      chalk.red(
+        `proxy.json doesn't exist, pls execuate 'npm run generate:config'`
+      )
+    );
+    return;
+  }
 
-  console.log(localServer);
+  const { localServer, proxyServer } = JSON.parse(fs.readFileSync(proxyPath));
+
+  if (localServer) {
+    localServer.port && (port = localServer.port);
+    localServer.host && (host = localServer.host);
+  }
+
+  if (proxyServer && proxyServer.length > 0) {
+    proxyServer.forEach(({ path, target }) => {
+      console.log(path, "=====");
+      console.log(target, "xxxx");
+      app.use(
+        [path],
+        proxy({
+          target,
+          changeOrigin: true
+        })
+      );
+    });
+  } else {
+    chalk.red("proxyServer must be specified!");
+    process.exit();
+  }
 } else {
   app.use(
     "/*",
