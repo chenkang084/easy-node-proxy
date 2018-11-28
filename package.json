@@ -28,7 +28,7 @@
     "shelljs": "^0.8.2"
   },
   "devDependencies": {
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.7"
   },
   "repository": {
     "type": "git",
