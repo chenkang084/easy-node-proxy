@@ -1,6 +1,6 @@
 {
   "name": "easy-node-proxy",
-  "version": "1.1.0",
+  "version": "1.1.6",
   "description": "The nodejs proxy server that likes nginx help you resolve cors.",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,8 @@
     "dev": "nodemon",
     "start": "node ./src/index.js",
     "prod": "(pm2 delete all || true) && pm2 start src/index.js -i 2 ",
-    "stop": "pm2 stop all"
+    "stop": "pm2 stop all",
+    "generate:config": "node ./scripts/setupConfig.js"
   },
   "bin": {
     "easy-node-proxy": "./bin/easy-node-proxy"
@@ -32,6 +33,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chenkang084/k-test-tool.git"
+    "url": "git+https://github.com/chenkang084/easy-node-proxy.git"
   }
 }
