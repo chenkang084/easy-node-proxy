@@ -1,0 +1,12 @@
+{
+  "localServer": {
+    "host": "localhost",
+    "port": "8000"
+  },
+  "proxyServer": [
+    {
+      "path": "/api",
+      "target": ""
+    }
+  ]
+}
