@@ -1,9 +1,7 @@
 const fs = require("fs");
 const chalk = require("chalk");
 
-const configTemplate = fs.readFileSync(
-  `${process.cwd()}/scrpits/tmps/proxy.json`
-);
+const configTemplate = fs.readFileSync(`${process.cwd()}/template/proxy.json`);
 
 fs.writeFileSync(`${process.cwd()}/proxy.json`, configTemplate);
 
