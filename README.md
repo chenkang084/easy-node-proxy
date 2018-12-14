@@ -10,6 +10,8 @@ npm install easy-node-proxy -g
 
 ## Usage
 
+1.start by command line
+
 ```javscript
 // start server
 easy-node-proxy start -t your-proxy-server
@@ -18,7 +20,10 @@ easy-node-proxy stop
 // check other information
 easy-node-proxy --help
 Usage: easy-node-proxy [options] [command]
-
+2.start by proxy.json
+`npm run generate:config`
+edit the proxy.json
+`easy-node-proxy start -c`
 Options:
 
   -t, --target  specify the target proxy server [http://www.exmaple.com]
