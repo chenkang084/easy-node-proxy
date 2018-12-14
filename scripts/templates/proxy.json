@@ -1,0 +1,28 @@
+{
+  "localServer": {
+    "host": "localhost",
+    "port": "8000"
+  },
+  "proxyServer": [
+    {
+      "path": "/sop/obf",
+      "target": "http://10.211.162.168:8080"
+    },
+    {
+      "path": "/sop/automation",
+      "target": "http://10.211.162.168:9090"
+    },
+    {
+      "path": "/api/forecast-insight",
+      "target": "http://scm-sh-auto-01.coupang.net:8091"
+    },
+    {
+      "path": "/api",
+      "target": "http://scm-sh-auto-03.coupang.net:10001"
+    },
+    {
+      "path": "/",
+      "target": "http://scm-sh-elb.coupang.net"
+    }
+  ]
+}

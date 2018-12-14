@@ -2,7 +2,7 @@ const fs = require("fs");
 const chalk = require("chalk");
 
 const configTemplate = fs.readFileSync(
-  `${process.cwd()}/scripts/template/proxy.json`
+  `${process.cwd()}/scripts/templates/proxy.json`
 );
 
 fs.writeFileSync(`${process.cwd()}/proxy.json`, configTemplate);

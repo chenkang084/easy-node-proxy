@@ -21,7 +21,7 @@ app.use(
 
 app.use(compression());
 
-middlewares(app);
+// middlewares(app);
 
 if (config) {
   const proxyPath = `${process.cwd()}/proxy.json`;
@@ -43,13 +43,12 @@ if (config) {
 
   if (proxyServer && proxyServer.length > 0) {
     proxyServer.forEach(({ path, target }) => {
-      console.log(path, "=====");
-      console.log(target, "xxxx");
       app.use(
         [path],
         proxy({
           target,
-          changeOrigin: true
+          changeOrigin: true,
+          logLevel: "debug"
         })
       );
     });
@@ -63,6 +62,7 @@ if (config) {
     proxy({
       target: targetProxy,
       changeOrigin: true,
+      logLevel: "debug",
       pathRewrite: {
         ["^" + oldPath]: rewritePath
       }
@@ -81,9 +81,7 @@ server.listen(port, host, err => {
   console.log(chalk.green("node proxy start successfully!"));
   console.log(
     chalk.green(
-      `The node server can proxy http://${host +
-        ":" +
-        port}/api/* --> ${targetProxy}/api/*`
+      `The node server can proxy http://${host + ":" + port}/api/* --> /api/*`
     )
   );
 });

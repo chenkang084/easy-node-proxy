@@ -1,13 +1,13 @@
 {
   "name": "easy-node-proxy",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "The nodejs proxy server that likes nginx help you resolve cors.",
   "main": "index.js",
   "scripts": {
     "test": "node test.js",
     "dev": "nodemon",
     "start": "node ./src/index.js",
-    "prod": "(pm2 delete all || true) && pm2 start src/index.js -i 2 ",
+    "prod": "(pm2 delete all || true) && pm2 start src/index.js -i 3 ",
     "stop": "pm2 stop all",
     "generate:config": "node ./scripts/setupConfig.js"
   },
