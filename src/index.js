@@ -42,13 +42,14 @@ if (config) {
   }
 
   if (proxyServer && proxyServer.length > 0) {
-    proxyServer.forEach(({ path, target }) => {
+    proxyServer.forEach(({ path, target,...opts }) => {
       app.use(
         [path],
         proxy({
           target,
           changeOrigin: true,
-          logLevel: "debug"
+          logLevel: "debug",
+          ...opts
         })
       );
     });
