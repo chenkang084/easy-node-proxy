@@ -7,8 +7,8 @@
     "test": "node test.js",
     "dev": "nodemon",
     "start": "node ./src/index.js",
-    "prod": "(pm2 delete all || true) && pm2 start src/index.js -i 3 ",
-    "stop": "pm2 stop all",
+    "prod": "(pm2 delete easy-node-proxy || true) && pm2 start src/index.js -i 3 --name easy-node-proxy",
+    "stop": "pm2 stop easy-node-proxy",
     "generate:config": "node ./scripts/setupConfig.js"
   },
   "bin": {
@@ -17,19 +17,19 @@
   "author": "chenkang@084@163.com",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^2.4.1",
+    "chalk": "^2.4.2",
     "colors": "1.0.3",
-    "commander": "^2.18.0",
-    "compression": "^1.7.3",
+    "commander": "^2.20.0",
+    "compression": "^1.7.4",
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "http-proxy-middleware": "^0.19.0",
     "optimist": "0.6.x",
-    "pm2": "^3.0.3",
+    "pm2": "^3.4.1",
     "shelljs": "^0.8.2"
   },
   "devDependencies": {
-    "nodemon": "^1.18.7"
+    "nodemon": "^1.18.10"
   },
   "repository": {
     "type": "git",
