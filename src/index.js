@@ -5,6 +5,7 @@ const proxy = require("http-proxy-middleware");
 const compression = require("compression");
 const chalk = require("chalk");
 const fs = require("fs");
+const moment = require("moment");
 
 const app = express();
 const middlewares = require("./middlewares");
@@ -42,13 +43,30 @@ if (config) {
   }
 
   if (proxyServer && proxyServer.length > 0) {
-    proxyServer.forEach(({ path, target,...opts }) => {
+    proxyServer.forEach(({ path, target, ...opts }) => {
       app.use(
         [path],
         proxy({
           target,
           changeOrigin: true,
           logLevel: "debug",
+          logProvider: provider => {
+            return {
+              ...provider,
+              debug: log => {
+                console.log(moment().format("YYYY-MM-DD HH:mm:ss") + ":" + log);
+              },
+              info: log => {
+                console.log(
+                  chalk.green(
+                    `${moment().format(
+                      "YYYY-MM-DD HH:mm:ss"
+                    )} :[HPM] Proxy created:${path}  ->  ${target}`
+                  )
+                );
+              }
+            };
+          },
           ...opts
         })
       );
