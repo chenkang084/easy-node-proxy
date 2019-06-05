@@ -1,6 +1,6 @@
 {
   "name": "easy-node-proxy",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "The nodejs proxy server that likes nginx help you resolve cors.",
   "main": "index.js",
   "scripts": {

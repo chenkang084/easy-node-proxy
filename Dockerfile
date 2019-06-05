@@ -4,4 +4,4 @@ RUN npm i easy-node-proxy -g
 
 WORKDIR app
 
-CMD ["easy-node-proxy", "start","-c"]
+# CMD ["easy-node-proxy", "start","-c"]

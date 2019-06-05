@@ -28,6 +28,7 @@ program
       process.env.config = true;
       shell.exec(`cd ${rootPath} && npm run prod`);
       console.log(chalk.green("start your proxy server"));
+      process.exit();
       return;
     }
 
