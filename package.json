@@ -30,6 +30,7 @@
     "shelljs": "^0.8.2"
   },
   "devDependencies": {
+    "axios": ">=0.18.1",
     "nodemon": "^1.18.10"
   },
   "repository": {

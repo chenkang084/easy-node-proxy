@@ -2,6 +2,8 @@
 
 An easy and simple web proxy server based on nodejs,pm2.
 
+[![Version npm](https://img.shields.io/npm/v/easy-node-proxy.svg?style=flat-square)](https://www.npmjs.com/package/easy-node-proxy)[![npm Downloads](https://img.shields.io/npm/dm/easy-node-proxy.svg?style=flat-square)](https://npmcharts.com/compare/easy-node-proxy?minimal=true)
+
 ## Installation
 
 ```
