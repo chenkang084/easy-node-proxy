@@ -1,4 +1,4 @@
-FROM node:10-slim
+FROM node:12-slim
 
 # RUN apt-get update && apt-get -yq upgrade && apt-get install  && apt-get install -y git \
 #     && apt-get autoremove && apt-get autoclean
