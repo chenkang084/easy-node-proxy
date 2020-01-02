@@ -24,8 +24,7 @@ app.use(compression());
 
 // middlewares(app);
 
-// if (config) {
-if (true) {
+if (config) {
   const proxyPath = `${process.cwd()}/proxy.json`;
   if (!fs.existsSync(proxyPath)) {
     console.log(chalk.red(`proxy.json doesn't exist, pls execuate 'npm run generate:config'`));
