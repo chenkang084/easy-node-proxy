@@ -13,16 +13,8 @@ const middlewares = require('./middlewares');
 const { targetProxy, rewritePath, oldPath, config } = process.env;
 let { port, host } = process.env;
 
-// function relayRequestHeaders(proxyReq, req) {
-//   console.log(req.headers.cookie);
-//   Object.keys(req.headers).forEach(function(key) {
-//     proxyReq.setHeader(key, req.headers[key]);
-//   });
-// }
-
+const regex = /^\/scm\/*/gm;
 app.use(compression());
-
-// middlewares(app);
 
 if (config) {
   const proxyPath = `${process.cwd()}/proxy.json`;
@@ -33,18 +25,12 @@ if (config) {
 
   const { localServer, proxyServer, allowOrigin = [] } = JSON.parse(fs.readFileSync(proxyPath));
 
-  function relayResponseHeaders(proxyRes, req, res) {
-    Object.keys(proxyRes.headers).forEach(function(key) {
-      res.append(key, proxyRes.headers[key]);
-    });
-
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-
-    if (allowOrigin.includes(req.headers.origin)) {
-      res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-    }
-  }
+  app.use(
+    cors({
+      origin: allowOrigin,
+      credentials: true
+    })
+  );
 
   if (localServer) {
     localServer.port && (port = localServer.port);
@@ -72,9 +58,7 @@ if (config) {
               }
             };
           },
-          ...opts,
-          // onProxyReq: relayRequestHeaders,
-          onProxyRes: relayResponseHeaders
+          ...opts
         })
       );
     });
@@ -83,6 +67,8 @@ if (config) {
     process.exit();
   }
 } else {
+  app.use(cors());
+
   app.use(
     '/*',
     proxy({
