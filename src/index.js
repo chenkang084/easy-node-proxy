@@ -16,7 +16,7 @@ let { port, host } = process.env;
 const regex = /^\/scm\/*/gm;
 app.use(compression());
 
-if (config) {
+if (true) {
   const proxyPath = `${process.cwd()}/proxy.json`;
   if (!fs.existsSync(proxyPath)) {
     console.log(chalk.red(`proxy.json doesn't exist, pls execuate 'npm run generate:config'`));
@@ -31,6 +31,8 @@ if (config) {
       credentials: true
     })
   );
+
+  middlewares(app);
 
   if (localServer) {
     localServer.port && (port = localServer.port);

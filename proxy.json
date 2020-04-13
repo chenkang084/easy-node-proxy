@@ -6,7 +6,7 @@
   "proxyServer": [
     {
       "path": "/",
-      "target": "http://localhost:8080"
+      "target": "https://wxzhsc.sasseur.com/api/v3/"
     }
   ],
   "allowOrigin": []
