@@ -23,7 +23,7 @@ if (config) {
     return;
   }
 
-  const { localServer, proxyServer, allowOrigin = [] } = JSON.parse(fs.readFileSync(proxyPath));
+  const { localServer, proxyServer, allowOrigin = [], changeOrigin = false } = JSON.parse(fs.readFileSync(proxyPath));
 
   app.use(
     cors({
@@ -43,7 +43,7 @@ if (config) {
         [path],
         proxy({
           target,
-          changeOrigin: true,
+          changeOrigin,
           logLevel: 'debug',
           logProvider: (provider) => {
             return {
