@@ -23,7 +23,7 @@ if (config) {
     return;
   }
 
-  const { localServer, proxyServer, allowOrigin = [], changeOrigin = false } = JSON.parse(fs.readFileSync(proxyPath));
+  const { localServer, proxyServer, allowOrigin = [] } = JSON.parse(fs.readFileSync(proxyPath));
 
   app.use(
     cors({
@@ -38,7 +38,7 @@ if (config) {
   }
 
   if (proxyServer && proxyServer.length > 0) {
-    proxyServer.forEach(({ path, target, ...opts }) => {
+    proxyServer.forEach(({ path, target, changeOrigin = false, ...opts }) => {
       app.use(
         [path],
         proxy({

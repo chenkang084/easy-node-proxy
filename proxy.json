@@ -6,9 +6,9 @@
   "proxyServer": [
     {
       "path": "/",
-      "target": "http://localhost:8080"
+      "target": "http://localhost:8080",
+      "changeOrigin": false
     }
   ],
-  "allowOrigin": [],
-  "changeOrigin": false
+  "allowOrigin": []
 }
