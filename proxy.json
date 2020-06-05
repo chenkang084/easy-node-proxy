@@ -10,5 +10,7 @@
       "changeOrigin": false
     }
   ],
-  "allowOrigin": []
+  "allowOrigin": [],
+  "backoffice": true,
+  "env": "stage"
 }

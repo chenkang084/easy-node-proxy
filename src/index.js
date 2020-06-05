@@ -1,14 +1,15 @@
 const http = require('http');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const express = require('express');
 const proxy = require('http-proxy-middleware');
 const compression = require('compression');
 const chalk = require('chalk');
 const fs = require('fs');
 const moment = require('moment');
+const backofficeMiddleware = require('./middlewares/backoffice.middleware');
 
 const app = express();
-const middlewares = require('./middlewares');
 
 const { targetProxy, rewritePath, oldPath, config } = process.env;
 let { port, host } = process.env;
@@ -23,7 +24,9 @@ if (config) {
     return;
   }
 
-  const { localServer, proxyServer, allowOrigin = [] } = JSON.parse(fs.readFileSync(proxyPath));
+  const { localServer, proxyServer, allowOrigin = [], backoffice = false, env = 'stage' } = JSON.parse(
+    fs.readFileSync(proxyPath)
+  );
 
   app.use(
     cors({
@@ -31,6 +34,11 @@ if (config) {
       credentials: true
     })
   );
+
+  if (backoffice) {
+    app.use(cookieParser());
+    app.use(backofficeMiddleware(env));
+  }
 
   if (localServer) {
     localServer.port && (port = localServer.port);
