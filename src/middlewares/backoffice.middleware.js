@@ -9,6 +9,7 @@ module.exports = (env, whiteList) => {
   return async (req, res, next) => {
     let boasd = undefined;
     const path = req.originalUrl || req.path;
+    const returnUrl = `${backofficeUrl}/login?returnUrl=${req.protocol}://${req.headers.host + req.originalUrl}`;
 
     if (whiteList.includes(path)) {
       next();
@@ -22,7 +23,6 @@ module.exports = (env, whiteList) => {
 
       // no backoffice cookie
       if (!boasd) {
-        const returnUrl = `${backofficeUrl}/login?returnUrl=${req.protocol}://${req.headers.host + req.originalUrl}`;
         console.info('user has not signed.', returnUrl);
         res.redirect(returnUrl);
       } else {
