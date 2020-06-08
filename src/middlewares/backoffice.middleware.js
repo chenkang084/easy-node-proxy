@@ -1,22 +1,52 @@
-module.exports = (env) => {
-  return (req, res, next) => {
-    const backofficeUrl = ['stage', 'prod'].includes(env) ? 'https://auth.coupang.net' : 'https://auth.coupangdev.com';
+const axios = require('axios');
 
-    const cookies = req.cookies;
-    let isSign = false;
+module.exports = (env, whiteList) => {
+  const backofficeUrl = ['stage', 'prod'].includes(env) ? 'https://auth.coupang.net' : 'https://auth.coupangdev.com';
+  const backofficeApi = ['stage', 'prod'].includes(env)
+    ? 'https://api-gateway.coupang.net/v2/providers/backoffice_auth/apis/api/v2/session/'
+    : 'http://api-gateway.coupangdev.com/v2/providers/backoffice_auth/apis/api/v2/session/';
 
-    if (['stage', 'prod'].includes(env)) {
-      isSign = !!cookies['pdt-boasd'];
-    } else {
-      isSign = !!cookies['dvp-boasd'];
-    }
+  return async (req, res, next) => {
+    let boasd = undefined;
+    const path = req.originalUrl || req.path;
 
-    if (!isSign) {
-      const returnUrl = `${backofficeUrl}/login?returnUrl=${req.protocol}://${req.headers.host + req.originalUrl}`;
-      console.info('user has not signed.', returnUrl);
-      res.redirect(returnUrl);
-    } else {
+    if (whiteList.includes(path)) {
       next();
+    } else {
+      const cookies = req.cookies;
+      if (['stage', 'prod'].includes(env)) {
+        boasd = cookies['pdt-boasd'];
+      } else {
+        boasd = cookies['dvp-boasd'];
+      }
+
+      // no backoffice cookie
+      if (!boasd) {
+        const returnUrl = `${backofficeUrl}/login?returnUrl=${req.protocol}://${req.headers.host + req.originalUrl}`;
+        console.info('user has not signed.', returnUrl);
+        res.redirect(returnUrl);
+      } else {
+        // has backoffice cookie ,validate cookie whether it is valid
+        if (!req.session.loginId) {
+          try {
+            const { data } = await axios.default.post(
+              `${backofficeApi + boasd}?serviceType=INTERNAL`,
+              {},
+              {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'X-CAG-Authorization': 'AG_CONSUMER_TOKEN access-key=099caae8-6460-47f6-a738-85294b22313c'
+                }
+              }
+            );
+            // save loginId to cookie as session expires policy
+            req.session.loginId = data.loginId;
+          } catch (error) {
+            res.redirect(returnUrl);
+          }
+        }
+        next();
+      }
     }
   };
 };

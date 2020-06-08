@@ -1,3 +1,4 @@
 node_modules
 # /proxy.json
 .vscode
+package-lock.json

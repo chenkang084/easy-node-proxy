@@ -6,11 +6,14 @@
   "proxyServer": [
     {
       "path": "/",
-      "target": "http://localhost:8080",
+      "target": "http://scm-sh-auto-02.coupang.net:10001",
       "changeOrigin": false
     }
   ],
   "allowOrigin": [],
-  "backoffice": true,
-  "env": "stage"
+  "backoffice": {
+    "enable": true,
+    "env": "stage",
+    "whiteList": []
+  }
 }

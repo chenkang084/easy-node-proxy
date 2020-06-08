@@ -7,6 +7,7 @@ const compression = require('compression');
 const chalk = require('chalk');
 const fs = require('fs');
 const moment = require('moment');
+const session = require('express-session');
 const backofficeMiddleware = require('./middlewares/backoffice.middleware');
 
 const app = express();
@@ -17,16 +18,14 @@ let { port, host } = process.env;
 const regex = /^\/scm\/*/gm;
 app.use(compression());
 
-if (config) {
+if (true) {
   const proxyPath = `${process.cwd()}/proxy.json`;
   if (!fs.existsSync(proxyPath)) {
     console.log(chalk.red(`proxy.json doesn't exist, pls execuate 'npm run generate:config'`));
     return;
   }
 
-  const { localServer, proxyServer, allowOrigin = [], backoffice = false, env = 'stage' } = JSON.parse(
-    fs.readFileSync(proxyPath)
-  );
+  const { localServer, proxyServer, allowOrigin = [], backoffice } = JSON.parse(fs.readFileSync(proxyPath));
 
   app.use(
     cors({
@@ -35,9 +34,17 @@ if (config) {
     })
   );
 
-  if (backoffice) {
+  if (backoffice && backoffice.enable) {
     app.use(cookieParser());
-    app.use(backofficeMiddleware(env));
+    app.use(
+      session({
+        name: 'easy-node-proxy',
+        secret: 'easy-node-proxy',
+        resave: true,
+        saveUninitialized: true
+      })
+    );
+    app.use(backofficeMiddleware(backoffice.env, backoffice.whiteList));
   }
 
   if (localServer) {
