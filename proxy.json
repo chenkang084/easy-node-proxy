@@ -14,6 +14,11 @@
   "backoffice": {
     "enable": true,
     "env": "stage",
-    "whiteList": []
+    "whiteList": [
+      "/api/exception_order/getJobIdByReleaseId",
+      "/api/exception_order/getReleaseIdListByJobId",
+      "/api/sku/band/find",
+      "/api/sku/band/list"
+    ]
   }
 }
