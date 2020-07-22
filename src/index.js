@@ -9,6 +9,7 @@ const fs = require('fs');
 const moment = require('moment');
 const session = require('express-session');
 const backofficeMiddleware = require('./middlewares/backoffice.middleware');
+var FileStore = require('session-file-store')(session);
 
 const app = express();
 
@@ -40,8 +41,9 @@ if (true) {
       session({
         name: 'easy-node-proxy',
         secret: 'easy-node-proxy',
-        resave: true,
-        saveUninitialized: true
+        resave: false,
+        saveUninitialized: true,
+        store: new FileStore()
       })
     );
     app.use(backofficeMiddleware(backoffice.env, backoffice.whiteList));

@@ -40,6 +40,7 @@ module.exports = (env, whiteList) => {
               }
             );
             // save loginId to cookie as session expires policy
+            console.log('query backoffice server');
             req.session.loginId = data.loginId;
           } catch (error) {
             res.redirect(returnUrl);
