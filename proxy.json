@@ -6,7 +6,7 @@
   "proxyServer": [
     {
       "path": "/",
-      "target": "http://scm-sh-auto-02.coupang.net:10001",
+      "target": "https://scm-sh-auto-01.coupang.net",
       "changeOrigin": false
     }
   ],

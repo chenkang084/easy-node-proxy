@@ -9,9 +9,12 @@ const fs = require('fs');
 const moment = require('moment');
 const session = require('express-session');
 const backofficeMiddleware = require('./middlewares/backoffice.middleware');
-var FileStore = require('session-file-store')(session);
+const serviceWorkerMiddleware = require('./middlewares/serviceWorker.middleware');
+const FileStore = require('session-file-store')(session);
 
 const app = express();
+// serve sw.js
+app.use(serviceWorkerMiddleware);
 
 const { targetProxy, rewritePath, oldPath, config } = process.env;
 let { port, host } = process.env;
