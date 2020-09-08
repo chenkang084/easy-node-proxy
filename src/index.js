@@ -13,7 +13,7 @@ const serviceWorkerMiddleware = require('./middlewares/serviceWorker.middleware'
 const FileStore = require('session-file-store')(session);
 
 const app = express();
-// serve sw.js
+// hardcode serve sw.js
 app.use(serviceWorkerMiddleware);
 
 const { targetProxy, rewritePath, oldPath, config } = process.env;
