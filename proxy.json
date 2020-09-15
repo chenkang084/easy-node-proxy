@@ -5,15 +5,20 @@
   },
   "proxyServer": [
     {
+      "path": "/api",
+      "target": "http://local.coupangdev.com:8080",
+      "changeOrigin": false
+    },
+    {
       "path": "/",
-      "target": "https://scm-sh-auto-01.coupang.net",
+      "target": "http://local.coupangdev.com:8080",
       "changeOrigin": false
     }
   ],
   "allowOrigin": [],
   "backoffice": {
     "enable": true,
-    "env": "stage",
+    "env": "local",
     "whiteList": [
       "/api/exception_order/getJobIdByReleaseId",
       "/api/exception_order/getReleaseIdListByJobId",

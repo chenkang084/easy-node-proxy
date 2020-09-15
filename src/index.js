@@ -59,28 +59,59 @@ if (true) {
 
   if (proxyServer && proxyServer.length > 0) {
     proxyServer.forEach(({ path, target, changeOrigin = false, ...opts }) => {
-      app.use(
-        [path],
-        proxy({
-          target,
-          changeOrigin,
-          logLevel: 'debug',
-          logProvider: (provider) => {
-            return {
-              ...provider,
-              debug: (log) => {
-                console.log(moment().format('YYYY-MM-DD HH:mm:ss') + ':' + log);
-              },
-              info: (log) => {
-                console.log(
-                  chalk.green(`${moment().format('YYYY-MM-DD HH:mm:ss')} :[HPM] Proxy created:${path}  ->  ${target}`)
-                );
+      if (path === '/') {
+        app.use(
+          [path],
+          proxy({
+            target,
+            changeOrigin,
+            logLevel: 'debug',
+            logProvider: (provider) => {
+              return {
+                ...provider,
+                debug: (log) => {
+                  console.log(moment().format('YYYY-MM-DD HH:mm:ss') + ':' + log);
+                },
+                info: (log) => {
+                  console.log(
+                    chalk.green(`${moment().format('YYYY-MM-DD HH:mm:ss')} :[HPM] Proxy created:${path}  ->  ${target}`)
+                  );
+                }
+              };
+            },
+            pathRewrite: function(path, req) {
+              if (req.method === 'GET' && path.includes('/scm/')) {
+                return '/scm/';
               }
-            };
-          },
-          ...opts
-        })
-      );
+              return path;
+            },
+            ...opts
+          })
+        );
+      } else {
+        app.use(
+          [path],
+          proxy({
+            target,
+            changeOrigin,
+            logLevel: 'debug',
+            logProvider: (provider) => {
+              return {
+                ...provider,
+                debug: (log) => {
+                  console.log(moment().format('YYYY-MM-DD HH:mm:ss') + ':' + log);
+                },
+                info: (log) => {
+                  console.log(
+                    chalk.green(`${moment().format('YYYY-MM-DD HH:mm:ss')} :[HPM] Proxy created:${path}  ->  ${target}`)
+                  );
+                }
+              };
+            },
+            ...opts
+          })
+        );
+      }
     });
   } else {
     chalk.red('proxyServer must be specified!');
