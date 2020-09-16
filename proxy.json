@@ -10,11 +10,6 @@
       "changeOrigin": false
     },
     {
-      "path": "/ui",
-      "target": "http://local.coupangdev.com:8080",
-      "changeOrigin": false
-    },
-    {
       "path": "/",
       "target": "http://local.coupangdev.com:8080",
       "changeOrigin": false

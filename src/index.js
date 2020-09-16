@@ -78,12 +78,12 @@ if (true) {
               }
             };
           },
-          pathRewrite: function(path, req) {
-            if (req.method === 'GET' && path.includes('/ui/')) {
-              return '/ui';
-            }
-            return path;
-          },
+          // pathRewrite: function(path, req) {
+          //   if (req.method === 'GET' && path.includes('/ui/')) {
+          //     return '/ui';
+          //   }
+          //   return path;
+          // },
           ...opts
         })
       );
