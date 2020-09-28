@@ -25,16 +25,22 @@ app.use(compression());
 if (true) {
   const proxyPath = `${process.cwd()}/proxy.json`;
   if (!fs.existsSync(proxyPath)) {
-    console.log(chalk.red(`proxy.json doesn't exist, pls execuate 'npm run generate:config'`));
+    console.log(
+      chalk.red(
+        `proxy.json doesn't exist, pls execuate 'npm run generate:config'`
+      )
+    );
     return;
   }
 
-  const { localServer, proxyServer, allowOrigin = [], backoffice } = JSON.parse(fs.readFileSync(proxyPath));
+  const { localServer, proxyServer, allowOrigin = [], backoffice } = JSON.parse(
+    fs.readFileSync(proxyPath)
+  );
 
   app.use(
     cors({
       origin: allowOrigin,
-      credentials: true
+      credentials: true,
     })
   );
 
@@ -46,7 +52,7 @@ if (true) {
         secret: 'easy-node-proxy',
         resave: false,
         saveUninitialized: true,
-        store: new FileStore()
+        store: new FileStore(),
       })
     );
     app.use(backofficeMiddleware(backoffice.env, backoffice.whiteList));
@@ -71,20 +77,27 @@ if (true) {
               debug: (log) => {
                 console.log(moment().format('YYYY-MM-DD HH:mm:ss') + ':' + log);
               },
-              info: (log) => {
+              error: (log) => {
                 console.log(
-                  chalk.green(`${moment().format('YYYY-MM-DD HH:mm:ss')} :[HPM] Proxy created:${path}  ->  ${target}`)
+                  chalk.red(
+                    `${moment().format(
+                      'YYYY-MM-DD HH:mm:ss'
+                    )} :${log}`
+                  )
                 );
-              }
+              },
+              // info: (log) => {
+              //   console.log(
+              //     chalk.green(
+              //       `${moment().format(
+              //         'YYYY-MM-DD HH:mm:ss'
+              //       )} :[HPM] Proxy created:${path}  ->  ${target}`
+              //     )
+              //   );
+              // },
             };
           },
-          // pathRewrite: function(path, req) {
-          //   if (req.method === 'GET' && path.includes('/ui/')) {
-          //     return '/ui';
-          //   }
-          //   return path;
-          // },
-          ...opts
+          ...opts,
         })
       );
     });
@@ -102,8 +115,8 @@ if (true) {
       changeOrigin: true,
       logLevel: 'debug',
       pathRewrite: {
-        ['^' + oldPath]: rewritePath
-      }
+        ['^' + oldPath]: rewritePath,
+      },
     })
   );
 }
@@ -117,5 +130,9 @@ server.listen(port, host, (err) => {
   }
 
   console.log(chalk.green('node proxy start successfully!'));
-  console.log(chalk.green(`The node server can proxy http://${host + ':' + port}/api/* --> /api/*`));
+  console.log(
+    chalk.green(
+      `The node server can proxy http://${host + ':' + port}/api/* --> /api/*`
+    )
+  );
 });
